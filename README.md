@@ -429,11 +429,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ### 👨‍💻 Desenvolvedor
 
 **Gedeon**
-
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
 - Website: [Okapi Code Forge](https://okapi-code-forge.vercel.app/)
-
-### 📞 Suporte
 
 Para dúvidas ou problemas:
 
@@ -441,11 +437,6 @@ Para dúvidas ou problemas:
 2. Verifique as [issues abertas](https://github.com/seu-usuario/crm-juridico/issues)
 3. Abra uma [nova issue](https://github.com/seu-usuario/crm-juridico/issues/new)
 
-### 🙏 Agradecimentos
-
-Agradecimentos especiais a todos que contribuíram para este projeto!
-
----
 
 ## 🇺🇸 English
 
@@ -593,8 +584,6 @@ This project is licensed under the MIT License - see [LICENSE](LICENSE) file for
 ### 👨‍💻 Developer
 
 **Gedeon**
-
-- GitHub: [@seu-usuario](https://github.com/seu-usuario)
 - Website: [Okapi Code Forge](https://okapi-code-forge.vercel.app/)
 
 ---
