@@ -1,0 +1,343 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  SOCIO
+  ADVOGADO
+  ESTAGIARIO
+  ADMINISTRATIVO
+}
+
+enum CaseStatus {
+  ATIVO
+  ARQUIVADO
+  SUSPENSO
+  ENCERRADO
+}
+
+enum CaseType {
+  TRABALHISTA
+  CIVIL
+  CRIMINAL
+  TRIBUTARIO
+  FAMILIA
+  PREVIDENCIARIO
+  EMPRESARIAL
+  CONSUMIDOR
+  OUTROS
+}
+
+enum DocumentType {
+  PETICAO
+  PROCURACAO
+  CONTRATO
+  ATA
+  PARECER
+  OUTROS
+}
+
+enum AppointmentType {
+  AUDIENCIA
+  REUNIAO
+  ATENDIMENTO
+  DILIGENCIA
+}
+
+enum FeeStatus {
+  PENDENTE
+  PAGO
+  ATRASADO
+  CANCELADO
+}
+
+enum ContractStatus {
+  ATIVO
+  VENCIDO
+  CANCELADO
+}
+
+model User {
+  id                String    @id @default(uuid())
+  name              String
+  email             String    @unique
+  password          String
+  cpf               String?   @unique
+  oab               String?
+  phone             String?
+  role              UserRole  @default(ADVOGADO)
+  isActive          Boolean   @default(true)
+  twoFactorEnabled  Boolean   @default(false)
+  twoFactorSecret   String?
+  profileImage      String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Relações
+  casesResponsible  Case[]         @relation("ResponsibleLawyer")
+  appointments      Appointment[]
+  documents         Document[]     @relation("DocumentCreator")
+  auditLogs         AuditLog[]
+  notes             Note[]
+  refreshTokens     RefreshToken[]
+
+  @@map("users")
+}
+
+model RefreshToken {
+  id        String   @id @default(uuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+model Client {
+  id            String   @id @default(uuid())
+  name          String
+  email         String?
+  phone         String?
+  cpfCnpj       String   @unique
+  type          String   // PESSOA_FISICA ou PESSOA_JURIDICA
+  address       String?
+  city          String?
+  state         String?
+  zipCode       String?
+  notes         String?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relações
+  cases         Case[]
+  contracts     Contract[]
+
+  @@map("clients")
+}
+
+model Case {
+  id              String     @id @default(uuid())
+  caseNumber      String     @unique
+  title           String
+  description     String?
+  type            CaseType
+  status          CaseStatus @default(ATIVO)
+  court           String?
+  jurisdiction    String?
+  judge           String?
+  value           Float?
+  startDate       DateTime   @default(now())
+  endDate         DateTime?
+  clientId        String
+  responsibleId   String
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  // Relações
+  client          Client       @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  responsible     User         @relation("ResponsibleLawyer", fields: [responsibleId], references: [id])
+  parties         Party[]
+  deadlines       Deadline[]
+  hearings        Hearing[]
+  documents       Document[]
+  notes           Note[]
+  fees            Fee[]
+
+  @@map("cases")
+}
+
+model Party {
+  id        String   @id @default(uuid())
+  name      String
+  role      String   // RÉU, AUTOR, TESTEMUNHA, etc.
+  cpfCnpj   String?
+  lawyer    String?
+  contact   String?
+  caseId    String
+  createdAt DateTime @default(now())
+
+  case Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("parties")
+}
+
+model Deadline {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  dueDate     DateTime
+  isCompleted Boolean   @default(false)
+  completedAt DateTime?
+  priority    String    @default("MEDIA") // BAIXA, MEDIA, ALTA, URGENTE
+  caseId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  case Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("deadlines")
+}
+
+model Hearing {
+  id          String          @id @default(uuid())
+  title       String
+  description String?
+  date        DateTime
+  location    String?
+  type        String          // INICIAL, INSTRUÇÃO, SENTENÇA, etc.
+  status      String          @default("AGENDADA") // AGENDADA, REALIZADA, CANCELADA
+  notes       String?
+  caseId      String
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  case Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("hearings")
+}
+
+model Document {
+  id          String       @id @default(uuid())
+  title       String
+  description String?
+  type        DocumentType
+  fileName    String
+  filePath    String
+  fileSize    Int
+  mimeType    String
+  version     Int          @default(1)
+  caseId      String?
+  uploadedBy  String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  case       Case?  @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  uploader   User   @relation("DocumentCreator", fields: [uploadedBy], references: [id])
+
+  @@map("documents")
+}
+
+model Appointment {
+  id          String          @id @default(uuid())
+  title       String
+  description String?
+  type        AppointmentType
+  startTime   DateTime
+  endTime     DateTime
+  location    String?
+  participants String?
+  userId      String
+  isRecurring Boolean         @default(false)
+  recurrence  String?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("appointments")
+}
+
+model Fee {
+  id          String    @id @default(uuid())
+  description String
+  amount      Float
+  dueDate     DateTime
+  paidDate    DateTime?
+  status      FeeStatus @default(PENDENTE)
+  type        String    // HONORARIO, CUSTAS, PERICIA, etc.
+  caseId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  case Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+
+  @@map("fees")
+}
+
+model Contract {
+  id          String         @id @default(uuid())
+  title       String
+  description String?
+  value       Float
+  startDate   DateTime
+  endDate     DateTime?
+  status      ContractStatus @default(ATIVO)
+  terms       String?
+  filePath    String?
+  clientId    String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  @@map("contracts")
+}
+
+model Note {
+  id        String   @id @default(uuid())
+  content   String
+  caseId    String
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  case   Case @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id])
+
+  @@map("notes")
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String   // CREATE, UPDATE, DELETE, LOGIN, LOGOUT, etc.
+  entity      String   // User, Case, Client, etc.
+  entityId    String?
+  userId      String?
+  ipAddress   String?
+  userAgent   String?
+  details     String?
+  createdAt   DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@map("audit_logs")
+}
+
+model Template {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  content     String   // HTML ou Markdown template
+  category    String   // PETICAO, CONTRATO, etc.
+  variables   String?  // JSON com variáveis disponíveis
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("templates")
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  title     String
+  message   String
+  type      String   // PRAZO, AUDIENCIA, PAGAMENTO, etc.
+  isRead    Boolean  @default(false)
+  userId    String
+  link      String?
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
