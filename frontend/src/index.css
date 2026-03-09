@@ -3,12 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-gray-50 text-gray-900 font-sans antialiased;
+  html,
+  body,
+  #root {
+    @apply min-h-full;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-semibold text-dark-900;
+  body {
+    @apply bg-gray-50 text-gray-900 font-sans antialiased transition-colors duration-200 dark:bg-dark-900 dark:text-gray-100;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-semibold text-dark-900 dark:text-gray-100;
   }
 }
 
@@ -22,7 +33,7 @@
   }
 
   .btn-secondary {
-    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200;
+    @apply bg-gray-200 text-gray-800 hover:bg-gray-300 focus:ring-4 focus:ring-gray-200 dark:bg-dark-700 dark:text-gray-100 dark:hover:bg-dark-600;
   }
 
   .btn-danger {
@@ -30,10 +41,14 @@
   }
 
   .input-field {
-    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent;
+    @apply w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent dark:border-dark-600 dark:bg-dark-800 dark:text-gray-100;
   }
 
   .card {
-    @apply bg-white rounded-lg shadow-md p-6;
+    @apply bg-white rounded-lg shadow-md p-6 dark:bg-dark-800 dark:shadow-none dark:ring-1 dark:ring-dark-700;
+  }
+
+  .brand-gradient {
+    @apply bg-gradient-to-r from-primary-500 via-cyan-400 to-primary-700 bg-clip-text text-transparent;
   }
 }

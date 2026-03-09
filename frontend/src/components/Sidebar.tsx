@@ -8,7 +8,10 @@ import {
   ClockIcon,
   CurrencyDollarIcon,
   Cog6ToothIcon,
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
 } from '@heroicons/react/24/outline';
+import { useUIStore } from '../store/uiStore';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: HomeIcon },
@@ -17,46 +20,74 @@ const navigation = [
   { name: 'Agenda', href: '/calendar', icon: CalendarIcon },
   { name: 'Documentos', href: '/documents', icon: DocumentTextIcon },
   { name: 'Prazos', href: '/deadlines', icon: ClockIcon },
-  { name: 'Honorários', href: '/fees', icon: CurrencyDollarIcon },
-  { name: 'Configurações', href: '/settings', icon: Cog6ToothIcon },
+  { name: 'Honorarios', href: '/fees', icon: CurrencyDollarIcon },
+  { name: 'Configuracoes', href: '/settings', icon: Cog6ToothIcon },
 ];
 
 export default function Sidebar() {
   const location = useLocation();
+  const sidebarCollapsed = useUIStore((state) => state.sidebarCollapsed);
+  const toggleSidebar = useUIStore((state) => state.toggleSidebar);
 
   return (
-    <div className="w-64 bg-dark-800 text-white flex flex-col">
-      <div className="p-6 border-b border-dark-700">
-        <h1 className="text-2xl font-bold text-primary-400">CRM Jurídico</h1>
-        <p className="text-sm text-gray-400 mt-1">Gestão Advocatícia</p>
+    <aside
+      className={`${
+        sidebarCollapsed ? 'w-20' : 'w-72'
+      } bg-dark-900 text-white flex flex-col transition-all duration-200 border-r border-dark-700`}
+    >
+      <div className="p-4 border-b border-dark-700">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3 min-w-0">
+            <img src="/logo-mark.svg" alt="CRM Juridico" className="h-10 w-10 rounded-xl" />
+            {!sidebarCollapsed && (
+              <div className="min-w-0">
+                <h1 className="text-lg font-bold text-primary-300 truncate">CRM Juridico</h1>
+                <p className="text-xs text-gray-400">Gestao advocaticia</p>
+              </div>
+            )}
+          </div>
+          <button
+            onClick={toggleSidebar}
+            className="p-1.5 rounded-lg hover:bg-dark-700 transition"
+            title={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
+            aria-label={sidebarCollapsed ? 'Expandir menu' : 'Recolher menu'}
+          >
+            {sidebarCollapsed ? <ChevronDoubleRightIcon className="h-5 w-5" /> : <ChevronDoubleLeftIcon className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
-      <nav className="flex-1 p-4 space-y-2">
+      <nav className="flex-1 p-3 space-y-2 overflow-y-auto">
         {navigation.map((item) => {
           const isActive = location.pathname === item.href;
           return (
             <Link
               key={item.name}
               to={item.href}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
-                isActive
-                  ? 'bg-primary-600 text-white'
-                  : 'text-gray-300 hover:bg-dark-700 hover:text-white'
+              title={sidebarCollapsed ? item.name : undefined}
+              className={`flex items-center ${
+                sidebarCollapsed ? 'justify-center' : 'gap-3'
+              } px-3 py-3 rounded-lg transition-all ${
+                isActive ? 'bg-primary-600 text-white' : 'text-gray-300 hover:bg-dark-700 hover:text-white'
               }`}
             >
-              <item.icon className="h-5 w-5" />
-              <span className="font-medium">{item.name}</span>
+              <item.icon className="h-5 w-5 flex-shrink-0" />
+              {!sidebarCollapsed && <span className="font-medium truncate">{item.name}</span>}
             </Link>
           );
         })}
       </nav>
 
-      <div className="p-4 border-t border-dark-700">
-        <div className="text-xs text-gray-400">
-          <p>&copy; 2024 CRM Jurídico</p>
-          <p className="mt-1">v1.0.0</p>
-        </div>
+      <div className={`p-4 border-t border-dark-700 text-xs text-gray-400 ${sidebarCollapsed ? 'text-center' : ''}`}>
+        {!sidebarCollapsed ? (
+          <>
+            <p>&copy; 2026 CRM Juridico</p>
+            <p className="mt-1">v1.1.0</p>
+          </>
+        ) : (
+          <p>v1.1</p>
+        )}
       </div>
-    </div>
+    </aside>
   );
 }

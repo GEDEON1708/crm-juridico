@@ -1,19 +1,16 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
+import {
+  getStats,
+  getCaseTypeDistribution,
+  getMonthlyActivity,
+} from '../controllers/dashboard.controller';
 
 const router = Router();
 router.use(authenticate);
 
-router.get('/stats', (req, res) => {
-  res.json({
-    status: 'success',
-    data: {
-      totalCases: 0,
-      activeCases: 0,
-      pendingDeadlines: 0,
-      upcomingHearings: 0
-    }
-  });
-});
+router.get('/stats', getStats);
+router.get('/case-type-distribution', getCaseTypeDistribution);
+router.get('/monthly-activity', getMonthlyActivity);
 
 export default router;

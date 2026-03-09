@@ -5,6 +5,7 @@
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![Status](https://img.shields.io/badge/status-production-brightgreen.svg)
+![CI](https://github.com/seu-usuario/crm-juridico/actions/workflows/ci.yml/badge.svg)
 
 **Sistema completo de gestão para escritórios de advocacia com recursos avançados de organização processual, financeira e administrativa.**
 
@@ -178,6 +179,17 @@ docker-compose up -d
 # Parar sistema
 .\stop.ps1
 ```
+
+### 🚀 Fluxo de Release (Tag)
+
+Com o workflow de release configurado, publique uma versão assim:
+
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+Ao enviar a tag `v*.*.*`, o GitHub Actions cria a release automaticamente com notas geradas.
 
 ### 🔑 Credenciais de Teste
 

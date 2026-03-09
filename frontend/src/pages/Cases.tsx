@@ -1,4 +1,4 @@
-Ôªøimport { useState } from 'react';
+import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import api from '../lib/axios';
 import { MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/outline';
@@ -12,7 +12,7 @@ const statusColors: Record<string, string> = {
 
 const statusLabels: Record<string, string> = {
   EM_ANDAMENTO: 'Em Andamento',
-  CONCLUIDO: 'Conclu√≠do',
+  CONCLUIDO: 'ConcluÌdo',
   ARQUIVADO: 'Arquivado',
   SUSPENSO: 'Suspenso',
 };
@@ -21,9 +21,9 @@ const typeLabels: Record<string, string> = {
   TRABALHISTA: 'Trabalhista',
   CIVIL: 'Civil',
   CRIMINAL: 'Criminal',
-  TRIBUTARIO: 'Tribut√°rio',
-  FAMILIA: 'Fam√≠lia',
-  PREVIDENCIARIO: 'Previdenci√°rio',
+  TRIBUTARIO: 'Tribut·rio',
+  FAMILIA: 'FamÌlia',
+  PREVIDENCIARIO: 'Previdenci·rio',
   CONSUMIDOR: 'Consumidor',
   EMPRESARIAL: 'Empresarial',
   AMBIENTAL: 'Ambiental',
@@ -61,8 +61,8 @@ export default function Cases() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-dark-900">Processos</h1>
-          <p className="text-gray-600 mt-1">Gerencie todos os processos do escrit√≥rio</p>
+          <h1 className="text-3xl font-bold text-dark-900 dark:text-gray-100">Processos</h1>
+          <p className="text-gray-600 mt-1">Gerencie todos os processos do escritÛrio</p>
         </div>
       </div>
 
@@ -72,7 +72,7 @@ export default function Cases() {
             <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Buscar por n√∫mero, t√≠tulo ou cliente..."
+              placeholder="Buscar por n˙mero, tÌtulo ou cliente..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
@@ -126,8 +126,8 @@ export default function Cases() {
               <div className="space-y-3">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-dark-900">{caso.caseNumber}</h3>
-                    <p className="text-sm text-gray-600 mt-1">{caso.title || 'Sem t√≠tulo'}</p>
+                    <h3 className="text-lg font-semibold text-dark-900 dark:text-gray-100">{caso.caseNumber}</h3>
+                    <p className="text-sm text-gray-600 mt-1">{caso.title || 'Sem tÌtulo'}</p>
                   </div>
                   <span className={`px-2.5 py-1 rounded-full text-xs font-medium ${statusColors[caso.status]}`}>
                     {statusLabels[caso.status]}
@@ -139,19 +139,19 @@ export default function Cases() {
                     {typeLabels[caso.type]}
                   </span>
                   <span className="text-gray-600"></span>
-                  <span className="text-gray-600">{caso.client?.name || 'Cliente n√£o identificado'}</span>
+                  <span className="text-gray-600">{caso.client?.name || 'Cliente n„o identificado'}</span>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4 pt-3 border-t border-gray-200">
                   <div>
                     <p className="text-xs text-gray-500">Data de Abertura</p>
-                    <p className="text-sm font-medium text-dark-900">
+                    <p className="text-sm font-medium text-dark-900 dark:text-gray-100">
                       {new Date(caso.startDate).toLocaleDateString('pt-BR')}
                     </p>
                   </div>
                   <div>
                     <p className="text-xs text-gray-500">Valor da Causa</p>
-                    <p className="text-sm font-medium text-dark-900">
+                    <p className="text-sm font-medium text-dark-900 dark:text-gray-100">
                       {caso.value ? `R$ ${caso.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : 'N/A'}
                     </p>
                   </div>
@@ -172,7 +172,7 @@ export default function Cases() {
             <div className="p-6">
               <div className="flex justify-between items-start mb-6">
                 <div>
-                  <h2 className="text-2xl font-bold text-dark-900">{selectedCase.caseNumber}</h2>
+                  <h2 className="text-2xl font-bold text-dark-900 dark:text-gray-100">{selectedCase.caseNumber}</h2>
                   <p className="text-gray-600 mt-1">{selectedCase.title}</p>
                 </div>
                 <button
@@ -191,11 +191,11 @@ export default function Cases() {
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Cliente</label>
-                    <p className="text-dark-900 mt-1">{selectedCase.client?.name}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{selectedCase.client?.name}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Tipo</label>
-                    <p className="text-dark-900 mt-1">{typeLabels[selectedCase.type]}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{typeLabels[selectedCase.type]}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Status</label>
@@ -205,8 +205,8 @@ export default function Cases() {
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Valor da Causa</label>
-                    <p className="text-dark-900 mt-1">
-                      {selectedCase.value ? `R$ ${selectedCase.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : 'N√£o informado'}
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">
+                      {selectedCase.value ? `R$ ${selectedCase.value.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}` : 'N„o informado'}
                     </p>
                   </div>
                 </div>
@@ -214,28 +214,28 @@ export default function Cases() {
                 <div className="space-y-4">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Data de Abertura</label>
-                    <p className="text-dark-900 mt-1">
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">
                       {new Date(selectedCase.startDate).toLocaleDateString('pt-BR')}
                     </p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Foro</label>
-                    <p className="text-dark-900 mt-1">{selectedCase.court || 'N√£o informado'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{selectedCase.court || 'N„o informado'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Vara</label>
-                    <p className="text-dark-900 mt-1">{selectedCase.courtDivision || 'N√£o informado'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{selectedCase.courtDivision || 'N„o informado'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Comarca</label>
-                    <p className="text-dark-900 mt-1">{selectedCase.district || 'N√£o informado'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{selectedCase.district || 'N„o informado'}</p>
                   </div>
                 </div>
 
                 {selectedCase.description && (
                   <div className="md:col-span-2">
-                    <label className="text-sm font-medium text-gray-500">Descri√ß√£o</label>
-                    <p className="text-dark-900 mt-1 whitespace-pre-wrap">{selectedCase.description}</p>
+                    <label className="text-sm font-medium text-gray-500">DescriÁ„o</label>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1 whitespace-pre-wrap">{selectedCase.description}</p>
                   </div>
                 )}
               </div>
@@ -255,3 +255,4 @@ export default function Cases() {
     </div>
   );
 }
+

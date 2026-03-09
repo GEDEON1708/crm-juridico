@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="favTitle">
+  <title id="favTitle">CRM Juridico</title>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#075985" />
+    </linearGradient>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#g)" />
+  <path d="M22 28h20M32 22v6m-10 0l-6 9h12m10-9l6 9H32" stroke="#e2e8f0" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="16" cy="37" r="2.5" fill="#e2e8f0" />
+  <circle cx="48" cy="37" r="2.5" fill="#e2e8f0" />
+  <path d="M25 44h14" stroke="#e2e8f0" stroke-width="3.4" stroke-linecap="round" />
+</svg>

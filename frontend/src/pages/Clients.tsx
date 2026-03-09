@@ -109,7 +109,7 @@ export default function Clients() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-dark-900">Clientes</h1>
+          <h1 className="text-3xl font-bold text-dark-900 dark:text-gray-100">Clientes</h1>
           <p className="text-gray-600 mt-1">Gerencie seus clientes</p>
         </div>
         <button onClick={openCreateModal} className="btn btn-primary">+ Novo Cliente</button>
@@ -185,7 +185,7 @@ export default function Clients() {
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-dark-900">
+                <h2 className="text-2xl font-bold text-dark-900 dark:text-gray-100">
                   {selectedClient ? 'Editar Cliente' : 'Novo Cliente'}
                 </h2>
                 <button 
@@ -317,7 +317,7 @@ export default function Clients() {
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold text-dark-900">Detalhes do Cliente</h2>
+                <h2 className="text-2xl font-bold text-dark-900 dark:text-gray-100">Detalhes do Cliente</h2>
                 <button 
                   onClick={() => setViewClient(null)} 
                   title="Fechar"
@@ -332,39 +332,39 @@ export default function Clients() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium text-gray-500">Nome</label>
-                    <p className="text-dark-900 mt-1">{viewClient.name}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.name}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Tipo</label>
-                    <p className="text-dark-900 mt-1">{viewClient.type === 'PESSOA_FISICA' ? 'Pessoa Física' : 'Pessoa Jurídica'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.type === 'PESSOA_FISICA' ? 'Pessoa Física' : 'Pessoa Jurídica'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">CPF/CNPJ</label>
-                    <p className="text-dark-900 mt-1">{viewClient.cpfCnpj}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.cpfCnpj}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Email</label>
-                    <p className="text-dark-900 mt-1">{viewClient.email}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.email}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Telefone</label>
-                    <p className="text-dark-900 mt-1">{viewClient.phone}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.phone}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">CEP</label>
-                    <p className="text-dark-900 mt-1">{viewClient.zipCode || '-'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.zipCode || '-'}</p>
                   </div>
                   <div className="col-span-2">
                     <label className="text-sm font-medium text-gray-500">Endereço</label>
-                    <p className="text-dark-900 mt-1">{viewClient.address || '-'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.address || '-'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Cidade</label>
-                    <p className="text-dark-900 mt-1">{viewClient.city || '-'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.city || '-'}</p>
                   </div>
                   <div>
                     <label className="text-sm font-medium text-gray-500">Estado</label>
-                    <p className="text-dark-900 mt-1">{viewClient.state || '-'}</p>
+                    <p className="text-dark-900 dark:text-gray-100 mt-1">{viewClient.state || '-'}</p>
                   </div>
                 </div>
 
@@ -387,3 +387,4 @@ export default function Clients() {
     </div>
   );
 }
+

@@ -6,6 +6,9 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "prisma generate && tsc",
+    "test": "vitest",
+    "test:watch": "vitest --watch",
+    "test:ci": "vitest run",
     "start": "node dist/server.js",
     "vercel-build": "prisma generate && prisma migrate deploy && tsc",
     "postinstall": "prisma generate",
@@ -26,14 +29,11 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
-    "express": "^4.18.2",
+    "express": "^4.22.1",
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
-    "joi": "^17.11.0",
-    "jsonwebtoken": "^9.0.2",
-    "multer": "^1.4.5-lts.1",
-    "node-cron": "^3.0.3",
-    "nodemailer": "^6.9.7",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.1.1",
     "otplib": "^12.0.1",
     "qrcode": "^1.5.3",
     "winston": "^3.11.0"
@@ -43,14 +43,15 @@
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jsonwebtoken": "^9.0.5",
-    "@types/multer": "^1.4.11",
+    "@types/multer": "^2.0.0",
     "@types/node": "^20.19.24",
-    "@types/node-cron": "^3.0.11",
-    "@types/nodemailer": "^6.4.14",
     "@types/qrcode": "^1.5.5",
+    "@types/supertest": "^7.2.0",
     "nodemon": "^3.0.2",
     "prisma": "^5.7.0",
+    "supertest": "^7.2.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "vitest": "^4.0.18"
   }
 }

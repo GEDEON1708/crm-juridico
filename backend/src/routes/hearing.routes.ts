@@ -1,13 +1,20 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
+import {
+  getHearings,
+  getHearing,
+  createHearing,
+  updateHearing,
+  deleteHearing,
+} from '../controllers/hearing.controller';
 
 const router = Router();
 router.use(authenticate);
 
-router.get('/', (req, res) => res.json({ status: 'success', data: [] }));
-router.get('/:id', (req, res) => res.json({ status: 'success', data: {} }));
-router.post('/', (req, res) => res.status(201).json({ status: 'success', data: {} }));
-router.put('/:id', (req, res) => res.json({ status: 'success', data: {} }));
-router.delete('/:id', (req, res) => res.json({ status: 'success', message: 'Excluído' }));
+router.get('/', getHearings);
+router.get('/:id', getHearing);
+router.post('/', createHearing);
+router.put('/:id', updateHearing);
+router.delete('/:id', deleteHearing);
 
 export default router;

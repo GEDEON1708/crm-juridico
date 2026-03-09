@@ -1,13 +1,20 @@
 import { Router } from 'express';
 import { authenticate } from '../middleware/auth';
+import {
+  getDeadlines,
+  getDeadline,
+  createDeadline,
+  updateDeadline,
+  deleteDeadline,
+} from '../controllers/deadline.controller';
 
 const router = Router();
 router.use(authenticate);
 
-router.get('/', (req, res) => res.json({ status: 'success', data: [] }));
-router.get('/:id', (req, res) => res.json({ status: 'success', data: {} }));
-router.post('/', (req, res) => res.status(201).json({ status: 'success', data: {} }));
-router.put('/:id', (req, res) => res.json({ status: 'success', data: {} }));
-router.delete('/:id', (req, res) => res.json({ status: 'success', message: 'Excluído' }));
+router.get('/', getDeadlines);
+router.get('/:id', getDeadline);
+router.post('/', createDeadline);
+router.put('/:id', updateDeadline);
+router.delete('/:id', deleteDeadline);
 
 export default router;

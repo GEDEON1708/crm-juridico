@@ -220,7 +220,7 @@ export default function Deadlines() {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold text-dark-900">Prazos Judiciais</h1>
+          <h1 className="text-3xl font-bold text-dark-900 dark:text-gray-100">Prazos Judiciais</h1>
           <p className="text-gray-600 mt-1">Controle rigoroso dos prazos processuais</p>
         </div>
         <button onClick={openCreateModal} className="btn btn-primary">
@@ -325,7 +325,7 @@ export default function Deadlines() {
                 >
                   <div className="flex items-start gap-4 flex-1">
                     <div className="flex flex-col items-center bg-white rounded-lg px-3 py-2 min-w-[90px] border border-gray-200">
-                      <span className="text-2xl font-bold text-dark-900">
+                      <span className="text-2xl font-bold text-dark-900 dark:text-gray-100">
                         {new Date(deadline.dueDate).getDate()}
                       </span>
                       <span className="text-xs text-gray-600">
@@ -347,7 +347,7 @@ export default function Deadlines() {
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
-                        <h3 className="font-semibold text-dark-900">{deadline.title}</h3>
+                        <h3 className="font-semibold text-dark-900 dark:text-gray-100">{deadline.title}</h3>
                         {isOverdue && (
                           <ExclamationTriangleIcon className="h-5 w-5 text-red-600" />
                         )}
@@ -410,7 +410,7 @@ export default function Deadlines() {
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full">
             <div className="p-6">
               <div className="flex justify-between items-center mb-6">
-                <h2 className="text-2xl font-bold text-dark-900">
+                <h2 className="text-2xl font-bold text-dark-900 dark:text-gray-100">
                   {selectedDeadline ? 'Editar Prazo' : 'Novo Prazo'}
                 </h2>
                 <button
@@ -539,3 +539,4 @@ export default function Deadlines() {
     </div>
   );
 }
+

@@ -170,7 +170,10 @@ export const deleteDocument = async (req: AuthRequest, res: Response, next: Next
     }
 
     // Deletar arquivo físico
-    const filePath = path.join(__dirname, '../../', document.filePath);
+    const normalizedFilePath = document.filePath.startsWith('/')
+      ? document.filePath.slice(1)
+      : document.filePath;
+    const filePath = path.join(__dirname, '../../', normalizedFilePath);
     if (fs.existsSync(filePath)) {
       fs.unlinkSync(filePath);
     }

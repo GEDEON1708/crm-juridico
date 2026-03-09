@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 120" role="img" aria-labelledby="fullLogoTitle">
+  <title id="fullLogoTitle">CRM Juridico</title>
+  <defs>
+    <linearGradient id="markBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0ea5e9" />
+      <stop offset="100%" stop-color="#075985" />
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="104" height="104" rx="24" fill="url(#markBg)" />
+  <path d="M60 26l24 10v24c0 20-10 33-24 42-14-9-24-22-24-42V36z" fill="#082f49" fill-opacity=".45" />
+  <path d="M41 53h38M60 44v9m-18 0l-9 13h18m18-13l9 13H60" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <circle cx="33" cy="66" r="4" fill="#e2e8f0" />
+  <circle cx="87" cy="66" r="4" fill="#e2e8f0" />
+  <path d="M46 76h28" stroke="#e2e8f0" stroke-width="6" stroke-linecap="round" />
+  <text x="132" y="52" font-size="38" font-family="Segoe UI, Arial, sans-serif" font-weight="700" fill="#0f172a">CRM Jurídico</text>
+  <text x="132" y="84" font-size="22" font-family="Segoe UI, Arial, sans-serif" font-weight="500" fill="#475569">Gestão advocatícia</text>
+</svg>
