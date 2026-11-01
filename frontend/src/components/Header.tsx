@@ -12,7 +12,7 @@ import { useAuthStore } from '../store/authStore';
 import { useNavigate } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import api from '../lib/axios';
+import api, { authMode } from '../lib/axios';
 import { useUIStore } from '../store/uiStore';
 
 interface Notification {
@@ -74,8 +74,12 @@ export default function Header() {
 
   const handleLogout = async () => {
     try {
-      const refreshToken = localStorage.getItem('refreshToken');
-      await api.post('/auth/logout', { refreshToken });
+      if (authMode === 'session') {
+        await api.post('/auth/logout');
+      } else {
+        const refreshToken = localStorage.getItem('refreshToken');
+        await api.post('/auth/logout', { refreshToken });
+      }
     } catch (error) {
       console.error('Erro ao fazer logout:', error);
     } finally {
