@@ -36,6 +36,26 @@ describe('authStore', () => {
     expect(localStorage.getItem('refreshToken')).toBe('refresh-token');
   });
 
+  it('setAuth should support session authentication without storing tokens', () => {
+    const user = {
+      id: 'user-1',
+      name: 'Test User',
+      email: 'test@example.com',
+      role: 'SOCIO',
+      twoFactorEnabled: false,
+    };
+
+    useAuthStore.getState().setAuth(user);
+
+    const state = useAuthStore.getState();
+    expect(state.isAuthenticated).toBe(true);
+    expect(state.user?.email).toBe('test@example.com');
+    expect(state.accessToken).toBeNull();
+    expect(state.refreshToken).toBeNull();
+    expect(localStorage.getItem('accessToken')).toBeNull();
+    expect(localStorage.getItem('refreshToken')).toBeNull();
+  });
+
   it('logout should clear auth state and tokens', () => {
     const user = {
       id: 'user-1',

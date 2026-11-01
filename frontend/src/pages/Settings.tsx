@@ -94,7 +94,10 @@ export default function Settings() {
 
     try {
       setLoading(true);
-      await api.put(`/users/${user.id}`, { password: data.newPassword });
+      await api.put(`/users/${user.id}`, {
+        currentPassword: data.currentPassword,
+        password: data.newPassword,
+      });
       toast.success('Senha alterada com sucesso');
       resetPassword();
     } catch (error: any) {

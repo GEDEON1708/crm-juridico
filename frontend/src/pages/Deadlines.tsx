@@ -55,7 +55,7 @@ export default function Deadlines() {
       if (filterStatus) params.append('status', filterStatus);
       
       const response = await api.get(`/deadlines?${params.toString()}`);
-      return response.data.data || [];
+      return response.data.data?.deadlines || [];
     }
   });
 

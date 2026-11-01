@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { MoonIcon, SunIcon } from '@heroicons/react/24/outline';
-import api from '../lib/axios';
+import api, { authMode, initializeCsrfCookie } from '../lib/axios';
 import { useAuthStore } from '../store/authStore';
 import { useUIStore } from '../store/uiStore';
 
@@ -25,6 +25,10 @@ export default function Login() {
   const onSubmit = async (data: LoginForm) => {
     try {
       setLoading(true);
+      if (authMode === 'session') {
+        await initializeCsrfCookie();
+      }
+
       const response = await api.post('/auth/login', data);
 
       if (response.data.require2FA) {

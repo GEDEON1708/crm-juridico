@@ -72,7 +72,7 @@ export default function Dashboard() {
     queryKey: ['upcoming-deadlines'],
     queryFn: async () => {
       const res = await api.get('/deadlines?limit=5');
-      return res.data.data;
+      return res.data.data?.deadlines || [];
     },
     retry: 1,
     staleTime: 30000,
